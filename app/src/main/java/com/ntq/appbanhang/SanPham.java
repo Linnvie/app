@@ -19,18 +19,24 @@ public class SanPham implements Serializable {
     public String mau2;
     public String mau3;
     public String mau4;
+    public String ratingBar;
 
-    public SanPham( String tenSP, Integer giaSP, Integer giaSale, String hinhAnhSP, String moTaSP, String star1, String star2, String star3, String star4, String star5, String heart, int idSP) {
+    public String getRatingBar() {
+        return ratingBar;
+    }
+
+    public void setRatingBar(String ratingBar) {
+        this.ratingBar = ratingBar;
+    }
+
+    public SanPham(String tenSP, Integer giaSP, Integer giaSale, String hinhAnhSP, String moTaSP, String star1, String ratingBar, String heart, int idSP) {
         this.tenSP = tenSP;
         this.giaSP = giaSP;
         this.giaSale = giaSale;
         this.hinhAnhSP = hinhAnhSP;
         this.moTaSP = moTaSP;
-        this.star1 = star1;
-        this.star2 = star2;
-        this.star3 = star3;
-        this.star4 = star4;
-        this.star5 = star5;
+        this.ratingBar = ratingBar;
+
         this.heart = heart;
         this.IdSP = idSP;
     }

@@ -124,9 +124,7 @@ public class DonHangActivity extends AppCompatActivity {
         StringRequest stringRequest= new StringRequest(Request.Method.POST, Server.urlInssertDonHang, new Response.Listener<String>() {
             @Override
             public void onResponse(final String responsemadonhang) {
-                Log.d("aaa",responsemadonhang);
                 if( Integer.valueOf(responsemadonhang.trim())>0 ){
-                    Log.d("aaa","vào" );
                     RequestQueue queue2=Volley.newRequestQueue(getApplicationContext());
                     StringRequest request2= new StringRequest(Request.Method.POST, Server.urlInsertDonHangChiTiet,
                             new Response.Listener<String>() {
@@ -164,7 +162,6 @@ public class DonHangActivity extends AppCompatActivity {
                                     e.printStackTrace();
                                 }
                                 jsonArray.put(jsonObject);
-                                Log.d("aaa",jsonArray.toString());
                             }
                             HashMap<String,String> hashMapchitiet= new HashMap<String,String>();
                             hashMapchitiet.put("jsonchitiet", jsonArray.toString());

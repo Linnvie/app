@@ -42,6 +42,20 @@
         <entry key="..\:/AppClothingAndroid/app/src/main/res/layout/my_fragment_profile.xml" value="0.17604166666666668" />
         <entry key="..\:/AppClothingAndroid/app/src/main/res/menu/bottom_menu.xml" value="0.1" />
         <entry key="..\:/AppClothingAndroid/app/src/main/res/menu/cart.xml" value="0.1" />
+        <entry key="..\:/android/app/app/src/main/res/drawable/background_button_feedback.xml" value="0.118" />
+        <entry key="..\:/android/app/app/src/main/res/drawable/background_feedback.xml" value="0.118" />
+        <entry key="..\:/android/app/app/src/main/res/drawable/button_them.xml" value="0.1355" />
+        <entry key="..\:/android/app/app/src/main/res/drawable/feedback.xml" value="0.118" />
+        <entry key="..\:/android/app/app/src/main/res/drawable/feedback1.xml" value="0.118" />
+        <entry key="..\:/android/app/app/src/main/res/layout/activity_chi_tiet_sp.xml" value="0.22" />
+        <entry key="..\:/android/app/app/src/main/res/layout/activity_feed_back.xml" value="0.1796875" />
+        <entry key="..\:/android/app/app/src/main/res/layout/activity_feedback.xml" value="0.22" />
+        <entry key="..\:/android/app/app/src/main/res/layout/activity_heart.xml" value="0.1" />
+        <entry key="..\:/android/app/app/src/main/res/layout/activity_main.xml" value="0.17552083333333332" />
+        <entry key="..\:/android/app/app/src/main/res/layout/dialog_feedback.xml" value="0.1796875" />
+        <entry key="..\:/android/app/app/src/main/res/layout/dong_sanpham_moinhat.xml" value="0.16666666666666666" />
+        <entry key="..\:/android/app/app/src/main/res/layout/item_dialog.xml" value="0.1796875" />
+        <entry key="..\:/android/app/app/src/main/res/layout/item_feedback.xml" value="0.1796875" />
         <entry key="..\:/androidptit/AppBanHang/app/src/main/res/drawable/color_gradient.xml" value="0.134" />
         <entry key="..\:/androidptit/AppBanHang/app/src/main/res/drawable/color_primary.xml" value="0.122" />
         <entry key="..\:/androidptit/AppBanHang/app/src/main/res/drawable/custom_btn.xml" value="0.122" />

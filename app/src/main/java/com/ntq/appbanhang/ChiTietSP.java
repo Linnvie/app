@@ -4,6 +4,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.animation.ObjectAnimator;
 import android.app.Dialog;
@@ -18,11 +20,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.ScaleAnimation;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -61,6 +66,7 @@ public class ChiTietSP extends AppCompatActivity {
     ArrayList<SanPham> mangSP;
     SanPhamAdapter sanPhamAdapter;
     SanPham sp;
+    RatingBar ratingBar;
 
     Button btnBackCTSP, btnDecrease, btnIncrease, btnAmoutProduct, btnMua, btnGioHang;
 
@@ -75,11 +81,6 @@ public class ChiTietSP extends AppCompatActivity {
     Integer giaSPSaleChiTiet = 0;
     String hinhAnhSPChiTiet = "";
     String MoTaSPChiTiet = "";
-    String Star1ChiTiet = "";
-    String Star2ChiTiet = "";
-    String Star3ChiTiet = "";
-    String Star4ChiTiet = "";
-    String Star5ChiTiet = "";
     String HeartChiTiet = "";
 
     @Override
@@ -93,7 +94,68 @@ public class ChiTietSP extends AppCompatActivity {
         setAddGioHang();
         setMuaHang();
         ClickGioHang();
+        SetDanhGia();
+    }
 
+    private void SetDanhGia() {
+        RecyclerView recyclerViewx;
+        Button fbAdd;
+        JSONArray jsonArray = new JSONArray();
+        FeedbackAdapter mainAdapter;
+        recyclerViewx = findViewById(R.id.recyCTSP);
+        fbAdd = findViewById(R.id.fb_add);
+
+        recyclerViewx.setLayoutManager(new GridLayoutManager(this, 3));
+        mainAdapter = new FeedbackAdapter(this, jsonArray);
+        recyclerViewx.setAdapter(mainAdapter);
+        fbAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Dialog dialog = new Dialog(ChiTietSP.this);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.setContentView(R.layout.dialog_feedback);
+                dialog.show();
+                RatingBar ratingBar = dialog.findViewById(R.id.ratingBar);
+                Button btnSubmit = dialog.findViewById(R.id.btn_submit);
+                ImageView ratingImage = dialog.findViewById(R.id.ratingImage);
+
+                ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+                    @Override
+                    public void onRatingChanged(RatingBar ratingBar, float rating, boolean b) {
+//                        txtRating.setText(String.format("(%s)",rating));
+                        if(rating <= 1) {
+                            ratingImage.setBackgroundResource(R.drawable.smile5);
+                        }
+                        else if(rating <= 2) {
+                            ratingImage.setBackgroundResource(R.drawable.smile4);
+                        }
+                        else if(rating <= 3) {
+                            ratingImage.setBackgroundResource(R.drawable.smile3);
+                        }
+                        else if(rating <= 4) {
+                            ratingImage.setBackgroundResource(R.drawable.smile2);
+                        }
+                        else {
+                            ratingImage.setBackgroundResource(R.drawable.smile1);
+                        }
+                        AnimateImage(ratingImage);
+                    }
+                });
+                btnSubmit.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        String sRating = String.valueOf(ratingBar.getRating());
+                        try {
+                            jsonArray.put(0, new JSONObject().put("rating", sRating));
+                            recyclerViewx.setAdapter(mainAdapter);
+                            dialog.dismiss();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+            }
+        });
     }
 
     private void setMuaHang() {
@@ -101,10 +163,18 @@ public class ChiTietSP extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 DialogGioHangCTSP(Gravity.BOTTOM, R.layout.mua_hang);
-                
             }
         });
+
     }
+    private void AnimateImage(ImageView ratingImage) {
+        ScaleAnimation animation = new ScaleAnimation(0, 1f, 0, 1f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        animation.setFillAfter(true);
+        animation.setDuration(200);
+        ratingImage.setAnimation(animation);
+    }
+
+
 
 
     private void setAddGioHang() {
@@ -144,11 +214,6 @@ public class ChiTietSP extends AppCompatActivity {
         giaSPSaleChiTiet = sp.getGiaSale();
         hinhAnhSPChiTiet = sp.getHinhAnhSP();
         MoTaSPChiTiet = sp.getMoTaSP();
-        Star1ChiTiet = sp.getStar1();
-        Star2ChiTiet = sp.getStar2();
-        Star3ChiTiet = sp.getStar3();
-        Star4ChiTiet = sp.getStar4();
-        Star5ChiTiet = sp.getStar5();
         HeartChiTiet = sp.getHeart();
         Sold = sp.getSold();
         IdSP = sp.getIdSP();
@@ -157,33 +222,12 @@ public class ChiTietSP extends AppCompatActivity {
         txtGiaSPCT.setText(decimalFormat.format(giaSPChiTiet) + "Đ");
         txtGiaSaleSPCT.setText(decimalFormat.format(giaSPSaleChiTiet) + "Đ");
         txtGiaSaleSPCT.setPaintFlags(txtGiaSaleSPCT.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-        txtSold.setText("Đã bán: 4" );
+//        txtSold.setText("Đã bán: 4" );
         Glide.with(getApplicationContext()).load(hinhAnhSPChiTiet)
                 .placeholder(R.drawable.account)
                 .error(R.drawable.cart)
                 .into(imvHinhCTSP);
         txtMota.setText(MoTaSPChiTiet);
-
-        Glide.with(getApplicationContext()).load(Star1ChiTiet)
-                .placeholder(R.drawable.account)
-                .error(R.drawable.cart)
-                .into(imvStarCTSP1);
-        Glide.with(getApplicationContext()).load(Star2ChiTiet)
-                .placeholder(R.drawable.account)
-                .error(R.drawable.cart)
-                .into(imvStarCTSP2);
-        Glide.with(getApplicationContext()).load(Star3ChiTiet)
-                .placeholder(R.drawable.account)
-                .error(R.drawable.cart)
-                .into(imvStarCTSP3);
-        Glide.with(getApplicationContext()).load(Star4ChiTiet)
-                .placeholder(R.drawable.account)
-                .error(R.drawable.cart)
-                .into(imvStarCTSP4);
-        Glide.with(getApplicationContext()).load(Star5ChiTiet)
-                .placeholder(R.drawable.account)
-                .error(R.drawable.cart)
-                .into(imvStarCTSP5);
 
     }
 
@@ -193,16 +237,9 @@ public class ChiTietSP extends AppCompatActivity {
         txtTenSPCT = findViewById(R.id.tenChiTietSP);
         txtGiaSPCT = findViewById(R.id.txtGiaChiTietSP);
         txtGiaSaleSPCT = findViewById(R.id.txtGiaSaleChiTietSP);
-        imvStarCTSP1 = findViewById(R.id.start1CTSP);
-        imvStarCTSP2 = findViewById(R.id.start2CTSP);
-        imvStarCTSP3 = findViewById(R.id.start3CTSP);
-        imvStarCTSP4 = findViewById(R.id.start4CTSP);
-        imvStarCTSP5 = findViewById(R.id.start5CTSP);
         txtMota = findViewById(R.id.expandable_text);
         btnBackCTSP = findViewById(R.id.btnBackCTSP);
         imvbtnGioHang = findViewById(R.id.btnThemVaoGioHang);
-
-        txtSold = findViewById(R.id.txtSold);
 
         btnMua = findViewById(R.id.btnMua);
         btnGioHang = findViewById(R.id.btnGioHang);
@@ -458,4 +495,5 @@ public class ChiTietSP extends AppCompatActivity {
             }
         });
     }
+
 }

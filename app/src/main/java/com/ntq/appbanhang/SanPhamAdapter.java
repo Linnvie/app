@@ -15,6 +15,7 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -78,21 +79,6 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.ItemHold
         Glide.with(context).load(product.getHinhAnhSP()).placeholder(R.drawable.account)
                 .error(R.drawable.cart)
                 .into(holder.imgHinhSanPham);
-        Glide.with(context).load(product.getStar1()).placeholder(R.drawable.account)
-                .error(R.drawable.cart)
-                .into(holder.imgStar1);
-        Glide.with(context).load(product.getStar2()).placeholder(R.drawable.account)
-                .error(R.drawable.cart)
-                .into(holder.imgStar2);
-        Glide.with(context).load(product.getStar3()).placeholder(R.drawable.account)
-                .error(R.drawable.cart)
-                .into(holder.imgStar3);
-        Glide.with(context).load(product.getStar4()).placeholder(R.drawable.account)
-                .error(R.drawable.cart)
-                .into(holder.imgStar4);
-        Glide.with(context).load(product.getStar5()).placeholder(R.drawable.account)
-                .error(R.drawable.cart)
-                .into(holder.imgStar5);
 
         Glide.with(context).load(product.getHeart()).placeholder(R.drawable.account)
                 .error(R.drawable.cart)
@@ -160,6 +146,9 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.ItemHold
         private ImageView imgStar1,imgStar2, imgStar3, imgStar4, imgStar5, imgHear, imgHearEd;
         private TextView txtPriceSale, txtSold;
         private ItemOnclickListener onclickListener;
+        private TextView txtDanhGia;
+        private RatingBar ratingBar;
+        private RecyclerView recyclerView;
 
         public ItemHolder(@NonNull View itemView) {
             super(itemView);
@@ -173,7 +162,10 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.ItemHold
             imgStar5 = itemView.findViewById(R.id.star5);
             imgHear = itemView.findViewById(R.id.heart);
             txtPriceSale = itemView.findViewById(R.id.txtPriceSale);
+//            txtDanhGia = itemView.findViewById(R.id.danhGia);
+            ratingBar = itemView.findViewById(R.id.ratingbarSPMN);
             itemView.setOnClickListener(this);
+            recyclerView = itemView.findViewById(R.id.recyCTSP);
         }
 
         public void setOnclickListener(ItemOnclickListener onclickListener) {
@@ -229,5 +221,6 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.ItemHold
             }
         });
     }
+
 
 }

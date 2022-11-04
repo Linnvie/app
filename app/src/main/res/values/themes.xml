@@ -14,4 +14,8 @@
 
         <!-- Customize your theme here. -->
     </style>
+    <style name="rating" parent="Widget.AppCompat.RatingBar">
+        <item name="colorControlNormal">#4D000000</item>
+        <item name="colorControlActivated">#FFEB3B</item>
+    </style>
 </resources>

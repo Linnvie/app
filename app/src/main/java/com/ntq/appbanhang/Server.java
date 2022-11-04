@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Server {
-   public static String localhost = "192.168.1.13:8080";
+   public static String localhost = "192.168.1.12:8080";
    // public static String localhost = "192.168.95.141:8080";
 
     public  static FirebaseUser firebaseUser=FirebaseAuth.getInstance().getCurrentUser();
